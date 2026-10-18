@@ -233,6 +233,10 @@ class OSFileSystem(FileSystem):
         self._validate_create_name(name)
 
         full_path = Path(path) / name
+
+        if file_type == "notebook" and full_path.suffix == "":
+            full_path = full_path.with_name(f"{full_path.name}.py")
+
         full_path = _generate_unique_path(full_path)
 
         if file_type == "directory":
